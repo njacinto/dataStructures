@@ -22,7 +22,16 @@ import jav.util.long_.comparator.LongComparator;
 import java.util.Comparator;
 
 public interface LongSorter {
-    long[] sort(long[] data);
-    long[] sort(long[] data, Comparator<Long> comparator);
-    long[] sort(long[] data, LongComparator comparator);
+
+    void sort(long[] data);
+
+    void sort(long[] data, Comparator<Long> comparator);
+
+    void sort(long[] data, LongComparator comparator);
+
+    void sort(long[] data, int from, int to);
+
+    void sort(long[] data, int from, int to, Comparator<Long> comparator);
+
+    void sort(long[] data, int from, int to, LongComparator comparator);
 }

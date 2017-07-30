@@ -22,10 +22,16 @@ import jav.util.int_.comparator.IntComparator;
 import java.util.Comparator;
 
 public interface IntSorter {
-    int[] sort(int[] data);
-    int[] sort(int[] data, Comparator<Integer> comparator);
-    int[] sort(int[] data, IntComparator comparator);
-    int[] sort(int[] data, int from, int to);
-    int[] sort(int[] data, int from, int to, Comparator<Integer> comparator);
-    int[] sort(int[] data, int from, int to, IntComparator comparator);
+
+    void sort(int[] data);
+
+    void sort(int[] data, Comparator<Integer> comparator);
+
+    void sort(int[] data, IntComparator comparator);
+
+    void sort(int[] data, int from, int to);
+
+    void sort(int[] data, int from, int to, Comparator<Integer> comparator);
+
+    void sort(int[] data, int from, int to, IntComparator comparator);
 }

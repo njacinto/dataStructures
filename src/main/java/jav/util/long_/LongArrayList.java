@@ -30,7 +30,6 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.RandomAccess;
 
-
 public class LongArrayList extends LongArrayCollection implements LongList, RandomAccess {
 
     //
@@ -39,12 +38,12 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     //
     protected LongSorter sorter = DEFAULT_SORTER;
 
-    
     /**
      * Creates a list with the elements of the array
+     *
      * @param elements
      */
-    public LongArrayList(long ... elements) {
+    public LongArrayList(long... elements) {
         this(elements, false);
     }
 
@@ -52,17 +51,18 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
      * Creates a list with the elements of the array or encapsulates the array.
      * When encapsulating, the original array will be replace if operations that
      * require the resize of the array are performed.
+     *
      * @param elements
      * @param encapsulateArray true if the list should use the array provided or
-     *          false to have the data copied to a new array
+     * false to have the data copied to a new array
      */
     public LongArrayList(long[] elements, boolean encapsulateArray) {
         super(elements, encapsulateArray);
     }
-    
+
     /**
      * Creates a long list array, copying the data on the elements array.
-     * 
+     *
      * @param elements array of elements to be copied
      * @param offset the start index of the data to be copied
      * @param length the number of elements to be copied
@@ -70,7 +70,7 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     public LongArrayList(long[] elements, int offset, int length) {
         super(elements, offset, length);
     }
-    
+
     /**
      * Constructs an empty list with the specified initial capacity.
      *
@@ -90,41 +90,40 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
 
     /**
      * Constructs a list containing the elements of the specified collection, in
-     * the order they are returned by the collection's iterator.
-     * Only non null elements will be copied.
+     * the order they are returned by the collection's iterator. Only non null
+     * elements will be copied.
      *
-     * @param c 
+     * @param c
      */
     public LongArrayList(Collection<? extends Long> c) {
         super(c);
     }
-    
+
     /**
      * Returns the sorter being used by this list.
+     *
      * @return the sorter.
      */
-    public LongSorter getSorter(){
+    public LongSorter getSorter() {
         return this.sorter;
     }
-    
+
     /**
-     * Changes the sorter being used by the list. 
-     * If null, the default sorter will be used.
-     * 
+     * Changes the sorter being used by the list. If null, the default sorter
+     * will be used.
+     *
      * @param sorter the new sorter.
      * @return this list;
      */
-    public LongArrayList setSorter(LongSorter sorter){
-        this.sorter = sorter==null ? DEFAULT_SORTER : sorter;
+    public LongArrayList setSorter(LongSorter sorter) {
+        this.sorter = sorter == null ? DEFAULT_SORTER : sorter;
         return this;
     }
 
-
-
     /**
-     * Creates a new LongArrayList with the same elements of this list.
-     * The internal array will be copied to the new list.
-     * 
+     * Creates a new LongArrayList with the same elements of this list. The
+     * internal array will be copied to the new list.
+     *
      * @return the new LongArrayList
      */
     @Override
@@ -138,7 +137,7 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
      *
      * @param index index of the element to return
      * @return the element at the specified position in this list
-     * @throws IndexOutOfBoundsException 
+     * @throws IndexOutOfBoundsException
      */
     @Override
     public long get(int index) {
@@ -153,7 +152,7 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
      * @param index index of the element to replace
      * @param element element to be stored at the specified position
      * @return the element previously at the specified position
-     * @throws IndexOutOfBoundsException 
+     * @throws IndexOutOfBoundsException
      */
     @Override
     public long set(int index, long element) {
@@ -182,12 +181,12 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     }
 
     /**
-     * Removes the element at the specified position in this list. 
-     * All elements will be shifted .
+     * Removes the element at the specified position in this list. All elements
+     * will be shifted .
      *
      * @param index the index of the element to be removed
      * @return the element that was removed from the list
-     * @throws IndexOutOfBoundsException 
+     * @throws IndexOutOfBoundsException
      */
     @Override
     public long removeByIndex(int index) {
@@ -196,23 +195,23 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
 
     /**
      * Inserts all of the elements in the specified collection into this list,
-     * starting at the specified position.
-     * Null elements will be ignored.
+     * starting at the specified position. Null elements will be ignored.
      *
      * @param index index at which to insert the first element from the
      * specified collection
      * @param c collection containing elements to be added to this list
      * @return true if this list changed as a result of the call
-     * @throws IndexOutOfBoundsException if index is smaller than 0 or bigger than size
-     * @throws NullPointerException if the specified collection is null or 
-     *          contains null values
+     * @throws IndexOutOfBoundsException if index is smaller than 0 or bigger
+     * than size
+     * @throws NullPointerException if the specified collection is null or
+     * contains null values
      */
     @Override
     public boolean addAll(int index, Collection<? extends Long> c) {
         checkIndexForAdd(index);
         int numNew = c.size();
         modCount++;
-        ensureCapacity(size + numNew);  
+        ensureCapacity(size + numNew);
 
         int numMoved = size - index;
         if (numMoved > 0) {
@@ -228,18 +227,20 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     }
 
     /**
-     * Inserts all of the elements into this list, starting at the specified position. 
+     * Inserts all of the elements into this list, starting at the specified
+     * position.
      *
      * @param index index at which to insert the first element from the
      * specified collection
      * @param elements collection containing elements to be added to this list
      * @return <tt>true</tt> if this list changed as a result of the call
-     * @throws IndexOutOfBoundsException if index is smaller than 0 or bigger than size
+     * @throws IndexOutOfBoundsException if index is smaller than 0 or bigger
+     * than size
      */
     @Override
     public boolean addAll(int index, long[] elements) {
         checkIndexForAdd(index);
-        if(elements!=null && elements.length>0){
+        if (elements != null && elements.length > 0) {
             int elemLen = elements.length;
             modCount++;
             ensureCapacity(size + elemLen);  // Increments modCount
@@ -252,13 +253,13 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
             System.arraycopy(elements, 0, this.elements, index, elemLen);
             size += elemLen;
             return true;
-        } 
+        }
         return false;
     }
 
     /**
      * Removes from this list all of the elements whose index is between
-     * {@code fromIndex}, inclusive, and {@code toIndex}, exclusive. 
+     * {@code fromIndex}, inclusive, and {@code toIndex}, exclusive.
      *
      * @param fromIndex
      * @param toIndex
@@ -269,25 +270,25 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
      *          toIndex < fromIndex})
      */
     public void removeRange(int fromIndex, int toIndex) {
-        if(fromIndex<0 || fromIndex>toIndex || toIndex>size){
-            throw new IndexOutOfBoundsException("From Index: " + fromIndex + 
-                    ", To Index: " + toIndex +", Size: " + size);
+        if (fromIndex < 0 || fromIndex > toIndex || toIndex > size) {
+            throw new IndexOutOfBoundsException("From Index: " + fromIndex
+                    + ", To Index: " + toIndex + ", Size: " + size);
         }
         modCount++;
         int numMoved = size - toIndex;
-        if(numMoved>0){
+        if (numMoved > 0) {
             System.arraycopy(elements, toIndex, elements, fromIndex, numMoved);
         }
         size -= (toIndex - fromIndex);
     }
 
     /**
-     * Returns a list iterator over the elements in this list, 
-     * starting at the specified position in the list. 
+     * Returns a list iterator over the elements in this list, starting at the
+     * specified position in the list.
      *
      * @param index
      * @return
-     * @throws IndexOutOfBoundsException 
+     * @throws IndexOutOfBoundsException
      */
     @Override
     public LongListIterator longListIterator(int index) {
@@ -296,8 +297,8 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     }
 
     /**
-     * Returns a list iterator over the elements in this list 
-     *     
+     * Returns a list iterator over the elements in this list
+     *
      * @return
      */
     @Override
@@ -306,12 +307,12 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     }
 
     /**
-     * Returns a list iterator over the elements in this list, 
-     * starting at the specified position in the list. 
+     * Returns a list iterator over the elements in this list, starting at the
+     * specified position in the list.
      *
      * @param index
      * @return
-     * @throws IndexOutOfBoundsException 
+     * @throws IndexOutOfBoundsException
      */
     public ListIterator<Long> listIterator(int index) {
         checkIndexForGetRemove(index);
@@ -319,8 +320,8 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     }
 
     /**
-     * Returns a list iterator over the elements in this list 
-     *     
+     * Returns a list iterator over the elements in this list
+     *
      * @return
      */
     public ListIterator<Long> listIterator() {
@@ -340,7 +341,7 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     @Override
     public void sort(Comparator<Long> c) {
         final int expectedModCount = modCount;
-        elements = sorter.sort(elements, c);
+        sorter.sort(elements, c);
         if (modCount != expectedModCount) {
             throw new ConcurrentModificationException();
         }
@@ -350,7 +351,7 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     @Override
     public void sort(LongComparator c) {
         final int expectedModCount = modCount;
-        elements = sorter.sort(elements, c);
+        sorter.sort(elements, c);
         if (modCount != expectedModCount) {
             throw new ConcurrentModificationException();
         }
@@ -358,19 +359,16 @@ public class LongArrayList extends LongArrayCollection implements LongList, Rand
     }
 
     // Protected
-    
     /**
-     * @param index 
+     * @param index
      */
     protected void checkIndexForAdd(int index) throws IndexOutOfBoundsException {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
     }
-    
-    
+
     // Classes
-    
     /**
      * ListIterator class
      */

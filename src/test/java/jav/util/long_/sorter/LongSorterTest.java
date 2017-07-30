@@ -16,11 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package jav.util.int_.sorter;
+package jav.util.long_.sorter;
 
-import jav.util.int_.comparator.IntComparator;
-import jav.util.int_.comparator.IntComparatorAsc;
-import jav.util.int_.comparator.IntComparatorDesc;
+import jav.util.long_.comparator.LongComparator;
+import jav.util.long_.comparator.LongComparatorAsc;
+import jav.util.long_.comparator.LongComparatorDesc;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -35,42 +35,41 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class IntSorterTest {
+public class LongSorterTest {
 
-    private static final int[] TEST_ARRAY
-            = new int[]{5, 7, 3, 2, 1, 9, 6, 4, 8, 0, 0, -1,
-                Integer.MAX_VALUE, Integer.MAX_VALUE - 1, Integer.MIN_VALUE + 1, Integer.MIN_VALUE};
-    private static final int[] ASC_CHECK_ARRAY
-            = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE + 1, -1, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                Integer.MAX_VALUE - 1, Integer.MAX_VALUE};
-    private static final int[] DESC_CHECK_ARRAY
-            = new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE - 1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 0, -1,
-                Integer.MIN_VALUE + 1, Integer.MIN_VALUE};
-    private static final int[] ASC_CHECK_HALF_SORT_ARRAY
-            = new int[]{1, 2, 3, 4, 5, 6, 7, 9, 8, 0, 0, -1,
-                Integer.MAX_VALUE, Integer.MAX_VALUE - 1, Integer.MIN_VALUE + 1, Integer.MIN_VALUE};
-    private static final int[] DESC_CHECK_HALF_CHECK_ARRAY
-            = new int[]{9, 7, 6, 5, 4, 3, 2, 1, 8, 0, 0, -1,
-                Integer.MAX_VALUE, Integer.MAX_VALUE - 1, Integer.MIN_VALUE + 1, Integer.MIN_VALUE};
-    private static final int[] ASC_CHECK_MIDDLE_SORT_ARRAY
-            = new int[]{5, 7, 3, 2, 0, 1, 4, 6, 8, 9, 0, -1,
-                Integer.MAX_VALUE, Integer.MAX_VALUE - 1, Integer.MIN_VALUE + 1, Integer.MIN_VALUE};
+    private static final long[] TEST_ARRAY
+            = new long[]{5, 7, 3, 2, 1, 9, 6, 4, 8, 0, 0, -1,
+                Long.MAX_VALUE, Long.MAX_VALUE - 1, Long.MIN_VALUE + 1, Long.MIN_VALUE};
+    private static final long[] ASC_CHECK_ARRAY
+            = new long[]{Long.MIN_VALUE, Long.MIN_VALUE + 1, -1, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                Long.MAX_VALUE - 1, Long.MAX_VALUE};
+    private static final long[] DESC_CHECK_ARRAY
+            = new long[]{Long.MAX_VALUE, Long.MAX_VALUE - 1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 0, -1,
+                Long.MIN_VALUE + 1, Long.MIN_VALUE};
+    private static final long[] ASC_CHECK_HALF_SORT_ARRAY
+            = new long[]{1, 2, 3, 4, 5, 6, 7, 9, 8, 0, 0, -1,
+                Long.MAX_VALUE, Long.MAX_VALUE - 1, Long.MIN_VALUE + 1, Long.MIN_VALUE};
+    private static final long[] DESC_CHECK_HALF_CHECK_ARRAY
+            = new long[]{9, 7, 6, 5, 4, 3, 2, 1, 8, 0, 0, -1,
+                Long.MAX_VALUE, Long.MAX_VALUE - 1, Long.MIN_VALUE + 1, Long.MIN_VALUE};
+    private static final long[] ASC_CHECK_MIDDLE_SORT_ARRAY
+            = new long[]{5, 7, 3, 2, 0, 1, 4, 6, 8, 9, 0, -1,
+                Long.MAX_VALUE, Long.MAX_VALUE - 1, Long.MIN_VALUE + 1, Long.MIN_VALUE};
     //
-    private int[] data;
-    private final IntSorter sorter;
+    private long[] data;
+    private final LongSorter sorter;
     private final String className;
 
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-            {IntHeapSort.INSTANCE},
-            {IntHeapSort.INSTANCE},
-            {IntMergeSort.INSTANCE},
-            {IntMergeSortInteractive.INSTANCE}
+            {LongHeapSort.INSTANCE},
+            {LongMergeSort.INSTANCE},
+            {LongMergeSortInteractive.INSTANCE}
         });
     }
 
-    public IntSorterTest(IntSorter sorter) {
+    public LongSorterTest(LongSorter sorter) {
         assertNotNull(sorter);
         className = sorter.getClass().getName();
         this.sorter = sorter;
@@ -98,7 +97,7 @@ public class IntSorterTest {
      */
     @Test
     public void testSort_intArr() {
-        int[] expResult = ASC_CHECK_ARRAY;
+        long[] expResult = ASC_CHECK_ARRAY;
         sorter.sort(data);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
@@ -108,9 +107,9 @@ public class IntSorterTest {
      */
     @Test
     public void testSort_intArr_IntegerComparator() {
-        IntComparator comparator = IntComparatorAsc.getInstance();
-        int[] expResult = ASC_CHECK_ARRAY;
-        sorter.sort(data, (Comparator<Integer>) comparator);
+        LongComparator comparator = LongComparatorAsc.getInstance();
+        long[] expResult = ASC_CHECK_ARRAY;
+        sorter.sort(data, (Comparator<Long>) comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
 
@@ -118,9 +117,9 @@ public class IntSorterTest {
      * Test of sort method, of class HeapSort.
      */
     @Test
-    public void testSort_intArr_IntComparator() {
-        IntComparator comparator = IntComparatorAsc.getInstance();
-        int[] expResult = ASC_CHECK_ARRAY;
+    public void testSort_intArr_LongComparator() {
+        LongComparator comparator = LongComparatorAsc.getInstance();
+        long[] expResult = ASC_CHECK_ARRAY;
         sorter.sort(data, comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
@@ -130,9 +129,9 @@ public class IntSorterTest {
      */
     @Test
     public void testSort_intArr_IntegerComparator_Desc() {
-        IntComparator comparator = IntComparatorDesc.getInstance();
-        int[] expResult = DESC_CHECK_ARRAY;
-        sorter.sort(data, (Comparator<Integer>) comparator);
+        LongComparator comparator = LongComparatorDesc.getInstance();
+        long[] expResult = DESC_CHECK_ARRAY;
+        sorter.sort(data, (Comparator<Long>) comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
 
@@ -140,9 +139,9 @@ public class IntSorterTest {
      * Test of sort method, of class HeapSort.
      */
     @Test
-    public void testSort_intArr_IntComparator_Desc() {
-        IntComparator comparator = IntComparatorDesc.getInstance();
-        int[] expResult = DESC_CHECK_ARRAY;
+    public void testSort_intArr_LongComparator_Desc() {
+        LongComparator comparator = LongComparatorDesc.getInstance();
+        long[] expResult = DESC_CHECK_ARRAY;
         sorter.sort(data, comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
@@ -152,7 +151,7 @@ public class IntSorterTest {
      */
     @Test
     public void testSort_intArr_half() {
-        int[] expResult = ASC_CHECK_HALF_SORT_ARRAY;
+        long[] expResult = ASC_CHECK_HALF_SORT_ARRAY;
         sorter.sort(data, 0, 8);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
@@ -162,9 +161,9 @@ public class IntSorterTest {
      */
     @Test
     public void testSort_intArr_IntegerComparator_half() {
-        IntComparator comparator = IntComparatorAsc.getInstance();
-        int[] expResult = ASC_CHECK_HALF_SORT_ARRAY;
-        sorter.sort(data, 0, 8, (Comparator<Integer>) comparator);
+        LongComparator comparator = LongComparatorAsc.getInstance();
+        long[] expResult = ASC_CHECK_HALF_SORT_ARRAY;
+        sorter.sort(data, 0, 8, (Comparator<Long>) comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
 
@@ -172,9 +171,9 @@ public class IntSorterTest {
      * Test of sort method, of class HeapSort.
      */
     @Test
-    public void testSort_intArr_IntComparator_half() {
-        IntComparator comparator = IntComparatorAsc.getInstance();
-        int[] expResult = ASC_CHECK_HALF_SORT_ARRAY;
+    public void testSort_intArr_LongComparator_half() {
+        LongComparator comparator = LongComparatorAsc.getInstance();
+        long[] expResult = ASC_CHECK_HALF_SORT_ARRAY;
         sorter.sort(data, 0, 8, comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
@@ -184,9 +183,9 @@ public class IntSorterTest {
      */
     @Test
     public void testSort_intArr_IntegerComparator_Desc_half() {
-        IntComparator comparator = IntComparatorDesc.getInstance();
-        int[] expResult = DESC_CHECK_HALF_CHECK_ARRAY;
-        sorter.sort(data, 0, 8, (Comparator<Integer>) comparator);
+        LongComparator comparator = LongComparatorDesc.getInstance();
+        long[] expResult = DESC_CHECK_HALF_CHECK_ARRAY;
+        sorter.sort(data, 0, 8, (Comparator<Long>) comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
 
@@ -194,9 +193,9 @@ public class IntSorterTest {
      * Test of sort method, of class HeapSort.
      */
     @Test
-    public void testSort_intArr_IntComparator_Desc_half() {
-        IntComparator comparator = IntComparatorDesc.getInstance();
-        int[] expResult = DESC_CHECK_HALF_CHECK_ARRAY;
+    public void testSort_intArr_LongComparator_Desc_half() {
+        LongComparator comparator = LongComparatorDesc.getInstance();
+        long[] expResult = DESC_CHECK_HALF_CHECK_ARRAY;
         sorter.sort(data, 0, 8, comparator);
         assertArrayEquals("Error testing class: " + className, expResult, data);
     }
@@ -205,9 +204,9 @@ public class IntSorterTest {
      * Test of sort method, of class HeapSort.
      */
     @Test
-    public void testSort_intArr_IntComparator_Asc_Middle() {
-        IntComparator comparator = IntComparatorAsc.getInstance();
-        int[] expResult = ASC_CHECK_MIDDLE_SORT_ARRAY;
+    public void testSort_intArr_LongComparator_Asc_Middle() {
+        LongComparator comparator = LongComparatorAsc.getInstance();
+        long[] expResult = ASC_CHECK_MIDDLE_SORT_ARRAY;
         sorter.sort(data, 4, 10, comparator);
 //        System.out.println("Expected: " + Arrays.toString(expResult));
 //        System.out.println("Result: " + Arrays.toString(data));
@@ -217,7 +216,7 @@ public class IntSorterTest {
     @Test
     public void testSort_intArr_DiffSizes() {
         for (int v = 100; v > 0; v--) {
-            int[] data = new int[v];
+            long[] data = new long[v];
             for (int i = 0; i < v; i++) {
                 data[i] = v - i;
             }
@@ -231,7 +230,7 @@ public class IntSorterTest {
     @Test
     public void testSort_intArr_time() {
         final int max = 1000;
-        int[] data = new int[max];
+        long[] data = new long[max];
         for (int i = 0; i < max; i++) {
             data[i] = max - i;
         }
@@ -244,7 +243,7 @@ public class IntSorterTest {
     @Test
     public void testSort_intArr_sorted() {
         final int max = 1000;
-        int[] data = new int[max];
+        long[] data = new long[max];
         for (int i = 0; i < max; i++) {
             data[i] = i;
         }
