@@ -65,7 +65,8 @@ public class LongSorterTest {
         return Arrays.asList(new Object[][]{
             {LongHeapSort.INSTANCE},
             {LongMergeSort.INSTANCE},
-            {LongMergeSortInteractive.INSTANCE}
+            {LongQuickSort.INSTANCE},
+            {LongMergeSortIteractive.INSTANCE}
         });
     }
 
@@ -252,6 +253,23 @@ public class LongSorterTest {
         //System.out.println("After sorting: " + Arrays.toString(data));
         for (int i = 0; i < max; i++) {
             assertEquals("Error testing class: " + className, i, data[i]);
+        }
+    }
+
+    @Test
+    public void testSort_Time() {
+        final int max = 100000;
+        long[] data = new long[max];
+        for (int i = 0; i < max; i++) {
+            data[i] = max - i;
+        }
+        boolean sortAsc = true;
+        for (int v = 0; v < 5; v++) {
+            sortAsc = !sortAsc;
+            long timestamp = System.currentTimeMillis();
+            sorter.sort(data, sortAsc ? LongComparatorAsc.INSTANCE : LongComparatorDesc.INSTANCE);
+            System.out.println("Sorting using " + className
+                    + ": " + Long.toString(System.currentTimeMillis() - timestamp));
         }
     }
 }

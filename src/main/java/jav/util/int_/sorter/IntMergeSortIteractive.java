@@ -23,11 +23,11 @@ import jav.util.int_.comparator.IntComparatorAsc;
 import jav.util.int_.comparator.IntegerComparatorWrapper;
 import java.util.Comparator;
 
-public class IntMergeSortInteractive implements IntSorter {
+public class IntMergeSortIteractive implements IntSorter {
 
-    public static final IntMergeSortInteractive INSTANCE = new IntMergeSortInteractive();
+    public static final IntMergeSortIteractive INSTANCE = new IntMergeSortIteractive();
 
-    public static IntMergeSortInteractive getInstance() {
+    public static IntMergeSortIteractive getInstance() {
         return INSTANCE;
     }
 

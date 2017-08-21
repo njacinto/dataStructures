@@ -65,8 +65,9 @@ public class IntSorterTest {
         return Arrays.asList(new Object[][]{
             {IntHeapSort.INSTANCE},
             {IntHeapSort.INSTANCE},
+            {IntQuickSort.INSTANCE},
             {IntMergeSort.INSTANCE},
-            {IntMergeSortInteractive.INSTANCE}
+            {IntMergeSortIteractive.INSTANCE}
         });
     }
 

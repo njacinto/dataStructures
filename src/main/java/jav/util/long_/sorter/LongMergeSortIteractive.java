@@ -23,11 +23,11 @@ import jav.util.long_.comparator.LongComparatorAsc;
 import jav.util.long_.comparator.LongComparatorWrapper;
 import java.util.Comparator;
 
-public class LongMergeSortInteractive implements LongSorter {
+public class LongMergeSortIteractive implements LongSorter {
 
-    public static final LongMergeSortInteractive INSTANCE = new LongMergeSortInteractive();
+    public static final LongMergeSortIteractive INSTANCE = new LongMergeSortIteractive();
 
-    public static LongMergeSortInteractive getInstance() {
+    public static LongMergeSortIteractive getInstance() {
         return INSTANCE;
     }
 
@@ -64,6 +64,14 @@ public class LongMergeSortInteractive implements LongSorter {
     // private methods
     private static void sortArray(final long data[], final int l, final int h,
             final LongComparator comparator) {
+        // Create temp array
+        int maxLen = ((h - l) >> 1);
+        maxLen |= maxLen >> 1;
+        maxLen |= maxLen >> 2;
+        maxLen |= maxLen >> 4;
+        maxLen |= maxLen >> 8;
+        maxLen |= maxLen >> 16;
+        final long[] L = new long[maxLen + 1]; //new long[((h + 1 - l) >> 1) + 1];
         for (int currSize = 1, nextSize = 2; currSize <= h;
                 currSize = nextSize, nextSize = currSize << 1) {
             for (int startIdx = l; startIdx < h; startIdx += nextSize) {
@@ -75,8 +83,6 @@ public class LongMergeSortInteractive implements LongSorter {
                         if (endIdx > h) {
                             endIdx = h;
                         }
-                        // Create temp array
-                        final long L[] = new long[n1];
                         System.arraycopy(data, startIdx, L, 0, n1);
                         // Initial indexes
                         int i = 0, j = mid + 1;
@@ -109,6 +115,52 @@ public class LongMergeSortInteractive implements LongSorter {
         }
     }
 
+//    private static void sortArray(final long data[], final int l, final int h,
+//            final LongComparator comparator) {
+//        for (int currSize = 1, nextSize = 2; currSize <= h;
+//                currSize = nextSize, nextSize = currSize << 1) {
+//            for (int startIdx = l; startIdx < h; startIdx += nextSize) {
+//                final int mid = startIdx + currSize - 1;
+//                if (h > mid) {
+//                    final int n1 = mid - startIdx + 1;
+//                    if (n1 != 1 || currSize != 1) {
+//                        int endIdx = mid + currSize;
+//                        if (endIdx > h) {
+//                            endIdx = h;
+//                        }
+//                        // Create temp array
+//                        final long[] L = new long[n1];
+//                        System.arraycopy(data, startIdx, L, 0, n1);
+//                        // Initial indexes
+//                        int i = 0, j = mid + 1;
+//                        int k = startIdx;
+//                        while (i < n1 && j <= endIdx) {
+//                            if (comparator.compare(L[i], data[j]) > 0) {
+//                                data[k] = data[j++];
+//                            } else {
+//                                if (k != i + startIdx) {
+//                                    data[k] = L[i];
+//                                }
+//                                i++;
+//                            }
+//                            k++;
+//                        }
+//                        // Copy remaining elements of L[] if any
+//                        if (i + startIdx != k) {
+//                            while (i < n1) {
+//                                data[k++] = L[i++];
+//                            }
+//                        }
+//                    } else if (comparator.compare(data[startIdx], data[startIdx + 1]) > 0) {
+//                        // if only 2 elements and second smaller than first, switch
+//                        final long tmp = data[startIdx];
+//                        data[startIdx] = data[startIdx + 1];
+//                        data[startIdx + 1] = tmp;
+//                    }
+//                }
+//            }
+//        }
+//    }
 //    private void sort(long data[], int l, int h, LongComparator comparator) {
 //        for (int curr_size = 1; curr_size <= h; curr_size = curr_size << 1) {
 //            final int nextCurrSize = curr_size << 1;
